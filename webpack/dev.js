@@ -28,7 +28,7 @@ const loaders = [
   },
   {
     test: /\.css$/,
-    exclude: /node_modules/,
+    // exclude: /node_modules/, // Quill编辑器需要引用nodemodules中的css
     use: ['style-loader', 'css-loader', 'postcss-loader']
   },
   {
@@ -81,6 +81,10 @@ const config = {
         NODE_ENV: JSON.stringify('development')
       }
     }),
+    // new webpack.ProvidePlugin({
+    //   // "window.Quill": "quill/dist/quill",
+    //   "Quill": "quill/dist/quill",
+    // }),
     new CleanWebpackPlugin(['dist'], { root: path.join(__dirname, '..') }),
     new HtmlWebpackPlugin({
       title: 'ReactStartKit',
@@ -127,6 +131,7 @@ const options = {
   inline: true,
   hot: true,
   open: true,
+  historyApiFallback: true,
   // publicPath: 'http://' + env.hot_server_host + ':' + env.hot_server_port + '/'
 };
 // webpackDevServer.addDevServerEntrypoints(config, options);

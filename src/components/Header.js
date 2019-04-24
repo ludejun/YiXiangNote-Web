@@ -4,7 +4,7 @@ import configs from '../configs';
 
 const Header = () => (
   <div>
-    <img src="../assets/react.svg" height="50" alt="react" />
+    <img src={require('../assets/react.svg')} height="50" alt="react" />
     <h1>{configs.name}</h1>
     <ul>
       <li>
@@ -14,7 +14,7 @@ const Header = () => (
         <Link to="/login">Login</Link>
       </li>
       <li>
-        <Link to="/topics">Topics</Link>
+        <Link to="/note">note</Link>
       </li>
     </ul>
   </div>

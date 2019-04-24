@@ -2,9 +2,8 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
 import Storage from './utils/Storage';
 // import createRoutes from './routes';
 import App from './containers/App';
@@ -23,13 +22,11 @@ Storage.setNamespace(configs.name);
 const render = (Component) => {
   try {
     ReactDOM.render(
-      <AppContainer>
-        <Provider store={store} key="provider">
-          <Router history={history}>
-            <Component />
-          </Router>
-        </Provider>
-      </AppContainer>,
+      <Provider store={store} key="provider">
+        <Router history={history}>
+          <Component />
+        </Router>
+      </Provider>,
       document.getElementById('main'),
     );
   } catch (err) {

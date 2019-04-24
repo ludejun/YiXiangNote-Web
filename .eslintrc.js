@@ -25,6 +25,10 @@ module.exports = {
     // 允许class中的内部方法使用_ ，其他情况默认不允许
     "no-underscore-dangle": ["error", { "allowAfterThis": true, "enforceInMethodNames": false }],
     "max-len": ["error", 100],
+    "global-require": 0,
+    "no-plusplus": 0,
+    "no-prototype-builtins": 0,
+    "no-restricted-syntax": 0,
     // "jsx-a11y/anchor-has-content": [ 2, { "components": [ "Anchor" ], }],
   }
 };
