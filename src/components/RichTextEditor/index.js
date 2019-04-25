@@ -5,7 +5,8 @@ import MagicUrl from 'quill-magic-url';
 import QuillEmoji from 'quill-emoji';
 import MarkdownShortcuts from './quill-markdown-shortcuts';
 // import { ImageResize } from 'quill-image-resize-module';
-import { imageResize, quillImageHandler } from './imageProcess';
+// import { imageResize, quillImageHandler } from './imageProcess';
+import { imageResize } from './imageProcess';
 import Moment from '../../utils/moment';
 import 'quill/dist/quill.snow.css';
 import 'quill-emoji/dist/quill-emoji.css';
@@ -82,13 +83,13 @@ export default class RichTextEditor extends Component {
     this.quill = new Quill('#editor', {
       debug: process.env.NODE_ENV === 'development' ? 'info' : false,
       modules: {
-        formula: true, // 公式
+        // formula: true, // todo 公式，暂不支持
         syntax: true,
         toolbar: {
           container: '#toolbar', // Selector for toolbar container
           handlers: {
             emoji() {},
-            image: quillImageHandler,
+            // image: quillImageHandler, // todo 处理图片先上传，再附链接。不处理默认保存base64
           },
         },
         // toolbar: toolbarOptions,
@@ -185,6 +186,7 @@ export default class RichTextEditor extends Component {
         console.log('自动化保存中...', change);
         // todo API请求回调
         this.setState({ autoSaveTime: new Moment().format('YYYY-MM-DD hh:mm:ss') });
+        change = new Delta();
       }
     }, 120000); // 2分钟自动保存一次
   }
@@ -193,18 +195,24 @@ export default class RichTextEditor extends Component {
     clearInterval(this.saveTimer);
   }
 
+  saveContent() {
+    console.log('保存中...', this.quill.getContents());
+    // todo API请求
+    document.getElementById('quillContent').innerHTML = JSON.stringify(this.quill.getContents());
+  }
+
   render() {
     return (
       <div className="content-container">
         <div id="toolbar">
           <span className="ql-formats">
-            <select className="ql-font" value="wsYaHei">
+            <select className="ql-font" defaultValue="wsYaHei">
               <option value="wsYaHei">微软雅黑</option>
               <option value="songTi">宋体</option>
               <option value="serif">serif</option>
               <option value="arial">arial</option>
             </select>
-            <select className="ql-size" value="14px">
+            <select className="ql-size" defaultValue="14px">
               <option value="12px">12px</option>
               <option value="14px">14px</option>
               <option value="18px">18px</option>
@@ -245,6 +253,8 @@ export default class RichTextEditor extends Component {
         <div>
           <p>{`上一次自动保存时间${this.state.autoSaveTime}`}</p>
         </div>
+        <button onClick={() => this.saveContent()}>保存</button>
+        <div id="quillContent" />
       </div>
     );
   }
