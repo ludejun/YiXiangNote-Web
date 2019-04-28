@@ -232,7 +232,7 @@ export default class RichTextEditor extends Component {
           <span className="ql-formats">
             <button className="ql-list" value="ordered" title="有序列表" />
             <button className="ql-list" value="bullet" title="无序列表" />
-            <button className="ql-list" value="check" title="checklist" />
+            <button className="ql-list" value="check" title="任务列表" />
             <button className="ql-indent" value="-1" title="清除缩进" />
             <button className="ql-indent" value="+1" title="缩进" />
             {/* <button className="ql-direction" value="rtl"></button> */}
