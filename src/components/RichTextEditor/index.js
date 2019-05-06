@@ -20,8 +20,8 @@ Quill.register(SizeStyle, true);
 const FontStyle = Quill.import('formats/font');
 FontStyle.whitelist = ['wsYaHei', 'songTi', 'serif', 'arial'];
 Quill.register(FontStyle, true);
-// // 设置图片大小
-// Quill.register('modules/imageResize', ImageResize);
+// 设置图片大小
+Quill.register('modules/imageResize', imageResize);
 // 输入URL自动识别超链接
 Quill.register('modules/magicUrl', MagicUrl);
 // Markdown识别
@@ -93,7 +93,7 @@ export default class RichTextEditor extends Component {
           },
         },
         // toolbar: toolbarOptions,
-        // imageResize: {},
+        imageResize: {},
         magicUrl: true,
         markdownShortcuts: {},
         'emoji-toolbar': true,
@@ -170,10 +170,6 @@ export default class RichTextEditor extends Component {
     // document
     //   .querySelectorAll('.ql-toolbar button')
     //   .forEach(dom => dom.addEventListener('mouseenter', () => (dom.title = dom.value)));
-    // 图片resize
-    document
-      .querySelectorAll('.ql-editor img')
-      .forEach(dom => dom.addEventListener('click', imageResize(dom)));
 
     // AutoSave
     let change = new Delta();
